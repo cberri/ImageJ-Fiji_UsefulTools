@@ -318,8 +318,8 @@ macro Convert_TiffSeqToMultipageTiff {
 			print("Processing Subfolder: " + dirIn + folderList[i]);
 
 			// Remove the file separator extetion and use it as name to save the output
-        	fileSeparatorIndex = indexOf(folderList[i], "/");
-        	saveTitle = substring(folderList[i], 0, fileSeparatorIndex);
+			fileSeparatorIndex = indexOf(folderList[i], "/");
+			saveTitle = substring(folderList[i], 0, fileSeparatorIndex);
 
 			// List the file in the subfolder directroy
 			fileList = getFileList(dirIn + folderList[i]);

@@ -183,10 +183,10 @@ macro ProcessSubFoldersMultiTiffToSeq {
 					totalNumberImg += 1;
 
 					// Remove file extension .something
-            		dotIndex = lastIndexOf(inputTitle, ".");
-            		title = substring(inputTitle, 0, dotIndex);
+					dotIndex = lastIndexOf(inputTitle, ".");
+					title = substring(inputTitle, 0, dotIndex);
 
-            		// Check if the output directory already exist
+					// Check if the output directory already exist
 					if (File.exists(dirOut)) {
 						
 						// Create the output subdirectory
@@ -196,12 +196,12 @@ macro ProcessSubFoldersMultiTiffToSeq {
 					}
 
 					// Save image stack as image sequence
-            		selectImage(inputTitle);
-            		run("Image Sequence... ", "format=TIFF save=["+dirOutSub+"]");
-            		inputTitle = getTitle();
-            		close(inputTitle);
+					selectImage(inputTitle);
+					run("Image Sequence... ", "format=TIFF save=["+dirOutSub+"]");
+					inputTitle = getTitle();
+					close(inputTitle);
             		
-            	}
+				}
 
 			}
 

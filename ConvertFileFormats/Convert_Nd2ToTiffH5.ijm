@@ -29,9 +29,9 @@ function CheckPluginInstallation() {
 	List.setCommands;
     if (List.get("Bio-Formats")!= "") {
 
-    	print("> Bio-Formats plugin is installed!");
-    	wait(1000);
-    	print("\\Clear");
+		print("> Bio-Formats plugin is installed!");
+		wait(1000);
+		print("\\Clear");
        
     } else {
     	
@@ -148,7 +148,7 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 	inputTitle = getTitle();
 	
 	// Split the channel and save the raw data ROI
-    getDimensions(width, height, channels, slices, frames);
+	getDimensions(width, height, channels, slices, frames);
 
 	// For Varun Ramani large data enhance.ai
 	if (channels == 1 && (slices > 1 || frames > 1)) {
@@ -204,11 +204,11 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 		}
 
 		// Split the channel and catch the file name
-        run("Split Channels");
-        selectImage("C1-" + inputTitle);
-        ch1 = getTitle();
-        selectImage("C2-" + inputTitle);
-        ch2 = getTitle();
+		run("Split Channels");
+		selectImage("C1-" + inputTitle);
+		ch1 = getTitle();
+		selectImage("C2-" + inputTitle);
+		ch2 = getTitle();
 
 		// Save the output
 		if (h5 == true && tiff == false) {
@@ -291,10 +291,10 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 
 		// Max number of channels supported is 2
 		// Close the images and update the user in case of more channels
-        selectImage(inputTitle);
-        close(inputTitle);
-        print("Warning: The input image must be a stack with max 2 channels");
-        print("The input image " + title + " has " + channels + " channel and " + slices + " slices");
+		selectImage(inputTitle);
+		close(inputTitle);
+		print("Warning: The input image must be a stack with max 2 channels");
+		print("The input image " + title + " has " + channels + " channel and " + slices + " slices");
     			
 	}
 	
@@ -411,7 +411,7 @@ macro ConvertNd2FileToTiff {
 
 					// Remove the .xxx extention
 					dotIndex = indexOf(inputTitle, ".");
-            		title = substring(inputTitle, 0, dotIndex);
+					title = substring(inputTitle, 0, dotIndex);
 
 					// Split the channels and save the images as h5 or tiff
 					SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1, saveCh2);

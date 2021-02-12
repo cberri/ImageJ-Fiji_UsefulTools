@@ -14,10 +14,14 @@
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // # 0
 function CloseAllWindows() {
+	
 	while(nImages > 0) {
+		
 		selectImage(nImages);
 		close();
+	
 	}
+	
 }
 
 // # 1
@@ -45,9 +49,9 @@ function CheckPluginInstallation() {
 	List.setCommands;
     if (List.get("Bio-Formats")!="") {
 
-    	print("> Bio-Formats plugin is installed!");
-    	wait(1000);
-    	print("\\Clear");
+		print("> Bio-Formats plugin is installed!");
+		wait(1000);
+		print("\\Clear");
        
     } else {
     	
@@ -677,13 +681,13 @@ macro lifToTiffConverter {
 			lifTitle = getTitle();
 
 			// Get the fist part of file name -
-        	plusIndex = lastIndexOf(lifTitle, "-");
-        	titleFirst = substring(lifTitle, plusIndex, lengthOf(lifTitle));
+			plusIndex = lastIndexOf(lifTitle, "-");
+			titleFirst = substring(lifTitle, plusIndex, lengthOf(lifTitle));
 
 			// Remove file extension .lif
-        	dotIndex = lastIndexOf(lifTitle, ".");
-        	titleOut = substring(lifTitle, 0, dotIndex);
-        	print("Input lif file name: " + titleOut); 
+			dotIndex = lastIndexOf(lifTitle, ".");
+			titleOut = substring(lifTitle, 0, dotIndex);
+			print("Input lif file name: " + titleOut); 
 
 			// Create a new directory inside the output directory where to save the single channel images
 			if (createSubfolders == true) {
@@ -737,12 +741,12 @@ macro lifToTiffConverter {
 				}
 
 				// Remove file extension .lif
-        		dotIndex = indexOf(inputTitle, ".");
-        		titleIn = substring(inputTitle, 0, dotIndex);
+				dotIndex = indexOf(inputTitle, ".");
+				titleIn = substring(inputTitle, 0, dotIndex);
         	
 				// Get the last part of file name -
-        		minusIndex = lastIndexOf(inputTitle, "-");
-        		titleLast = substring(inputTitle, minusIndex, lengthOf(inputTitle));
+				minusIndex = lastIndexOf(inputTitle, "-");
+				titleLast = substring(inputTitle, minusIndex, lengthOf(inputTitle));
 
 				// Index file seprator in case of lif subdirectory
 				separatorIndex = lastIndexOf(titleLast, "/");
@@ -754,7 +758,7 @@ macro lifToTiffConverter {
 
 					outputFileName =  titleIn + titleSepBefore + "_" + titleSepAfter;
         			
-					} else {
+				} else {
 
 					outputFileName =  titleIn + titleLast;
 					

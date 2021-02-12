@@ -23,10 +23,14 @@
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // # 1
 function CloseAllWindows() {
+	
 	while(nImages > 0) {
+		
 		selectImage(nImages);
 		close();
+		
 	}
+	
 }
 
 // # 2
@@ -39,15 +43,15 @@ function CheckPluginInstallation() {
 			
 		print("Before to start to use this macro you need to install the ilastik Import Export plugin!");
 		wait(3000); 	
-    	print("1. Select Help >> Update... from the menu to start the updater");
+		print("1. Select Help >> Update... from the menu to start the updater");
 		print("2. Click on Manage update sites. This brings up a dialog where you can activate additional update sites");
-    	print("3. Activate ilastik Import Export update sites (http://sites.imagej.net/Ilastik/)");
-    	print("4. Click Apply changes and restart ImageJ/Fiji");
-    	print("5. After restarting ImageJ you should be able to run this macro");
-    	print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	wait(3000);
-    	exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	exit(); 
+		print("3. Activate ilastik Import Export update sites (http://sites.imagej.net/Ilastik/)");
+		print("4. Click Apply changes and restart ImageJ/Fiji");
+		print("5. After restarting ImageJ you should be able to run this macro");
+		print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
+		wait(3000);
+		exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
+		exit(); 
        	
 	} else {
 
@@ -66,6 +70,7 @@ function InputDirectory() {
 
 	// The macro check that you choose a directory and output the input path
 	if (lengthOf(dirIn) == 0) {
+		
 		print("Exit!");
 		exit();
 			
@@ -92,7 +97,8 @@ function OutputDirectory(outputPath, year, month, dayOfMonth, second) {
 	dirOutRoot = substring(dirOutRoot, 0, lastSeparator);
 	
 	// Split the string by file separtor
-	splitString = split(dirOutRoot, File.separator); 
+	splitString = split(dirOutRoot, File.separator);
+	
 	for(i=0; i<splitString.length; i++) {
 
 		lastString = splitString[i];
@@ -309,14 +315,14 @@ macro IlastikConverter {
 
 					// Catch the input image file name
 					// Remove the .h5 extetion
-           			dotIndex = lastIndexOf(fileList[k], ".");
-           		 	title = substring(fileList[k], 0, dotIndex);
+					dotIndex = lastIndexOf(fileList[k], ".");
+					title = substring(fileList[k], 0, dotIndex);
 
-            		// Save the file as tiff
+					// Save the file as tiff
           		 	print("Saving: \t" + title + ".tiff");
-            		saveAs("Tiff", dirOutRoot + title);
-            		outputTitle = getTitle();
-           			close(outputTitle);
+					saveAs("Tiff", dirOutRoot + title);
+					outputTitle = getTitle();
+					close(outputTitle);
 
 				} else if (endsWith(fileList[k], 'tiff') || endsWith(fileList[k], 'tif')) {
 
@@ -329,19 +335,18 @@ macro IlastikConverter {
 
 					// Catch the input image file name
 					// Remove the .tiff extetion
-            		dotIndex = lastIndexOf(fileList[k], ".");
-            		title = substring(fileList[k], 0, dotIndex);
+					dotIndex = lastIndexOf(fileList[k], ".");
+					title = substring(fileList[k], 0, dotIndex);
 
-            		// Save the file as h5
-            		print("Saving: \t" + title + ".h5");
+					// Save the file as h5
+					print("Saving: \t" + title + ".h5");
 					run("Export HDF5", "select=[" + dirOutRoot + title + ".h5" + "] exportpath=[" + dirOutRoot + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+title+"]");	
-            		outputTitle = getTitle();
-            		close(outputTitle);
-
+					outputTitle = getTitle();
+					close(outputTitle);
 
 				} else { 
 			
-            		// Update the user
+					// Update the user
 					print("Input file is not {.hdf5/.tiff/.tif or a tiff Sequence}: " + fileList[k]);
 			
 				}
@@ -366,7 +371,7 @@ macro IlastikConverter {
 				// Catch the input image file name
 				// Remove the .tiff extetion
 				title = getTitle();
-            	dotIndex = lastIndexOf(title, ".");
+				dotIndex = lastIndexOf(title, ".");
 
 				if (dotIndex != -1) {
 				
@@ -384,10 +389,10 @@ macro IlastikConverter {
 				}
 				
 				// Save the file as h5
-         	   	print("Saving: \t" + title + ".h5");
+				print("Saving: \t" + title + ".h5");
 				run("Export HDF5", "select=[" + dirOut + title + ".h5" + "] exportpath=[" + dirOutRoot + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+title+"]");	
-            	outputTitle = getTitle();
-           	 	close(outputTitle);
+				outputTitle = getTitle();
+				close(outputTitle);
 
 			} else {
 

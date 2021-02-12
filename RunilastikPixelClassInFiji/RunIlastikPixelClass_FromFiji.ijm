@@ -48,20 +48,20 @@ function CheckPluginInstallation() {
 
 	List.setCommands;		
 	if (List.get("Export HDF5") == "") {
-			
+		
 		print("Before to start to use this macro you need to install the ilastik ImageJ/Fiji plugin!");
 		wait(3000); 	
-    	print("1. Select Help >> Update... from the menu to start the updater");
+		print("1. Select Help >> Update... from the menu to start the updater");
 		print("2. Click on Manage update sites. This brings up a dialog where you can activate additional update sites");
-    	print("3. Activate ilastik update sites (http://sites.imagej.net/Ilastik/)");
-    	print("4. Click Apply changes and restart ImageJ/Fiji");
-    	print("5. After restarting ImageJ you should be able to run this macro");
-    	print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	print("NB: After installing the plugin you need to setup the path to the ilastik executable location");
-    	print(">> (Fiji Main Menu: Plugin >> ilastik >> Configure ilastik executable location)");
-    	wait(3000);
-    	exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	exit(); 
+		print("3. Activate ilastik update sites (http://sites.imagej.net/Ilastik/)");
+		print("4. Click Apply changes and restart ImageJ/Fiji");
+		print("5. After restarting ImageJ you should be able to run this macro");
+		print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
+		print("NB: After installing the plugin you need to setup the path to the ilastik executable location");
+		print(">> (Fiji Main Menu: Plugin >> ilastik >> Configure ilastik executable location)");
+		wait(3000);
+		exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
+		exit(); 
        	
 	} else {
 
