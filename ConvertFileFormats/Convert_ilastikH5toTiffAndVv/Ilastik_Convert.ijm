@@ -319,7 +319,7 @@ macro IlastikConverter {
 					title = substring(fileList[k], 0, dotIndex);
 
 					// Save the file as tiff
-          		 	print("Saving: \t" + title + ".tiff");
+					print("Saving: \t" + title + ".tiff");
 					saveAs("Tiff", dirOutRoot + title);
 					outputTitle = getTitle();
 					close(outputTitle);

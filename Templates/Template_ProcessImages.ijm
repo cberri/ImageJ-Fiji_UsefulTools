@@ -392,6 +392,7 @@ function MaxMemory() {
 	memory = IJ.maxMemory();
 
 	if (memory > 4000000000) {
+		
 		print("Max Memory (RAM) Available for Fiji/ImageJ is:", memory); 
 		print("Please change the amount of memory available to Fiji/ImageJ to 70% of your total memory");
 		print("Edit >> Options >> Memory % Threads...");
@@ -415,7 +416,7 @@ function CheckBioFormatPluginInstallation() {
        
     } else {
     	
-		print("Before to start to use this macro you need to install the Bio-Formats plugin!");
+    	print("Before to start to use this macro you need to install the Bio-Formats plugin!");
 		wait(3000);
 		print("1. Select Help >> Update... from the menu to start the updater");
 		print("2. Click on Manage update sites. This brings up a dialog where you can activate additional update sites");
@@ -515,20 +516,20 @@ macro Template {
 			print("Opening:\t" + inputTitle);
 
 			// Remove file extension .something
-            dotIndex = indexOf(inputTitle, ".");
-            title = substring(inputTitle, 0, dotIndex);
-
-            // Check if the output directory already exist
+			dotIndex = indexOf(inputTitle, ".");
+			title = substring(inputTitle, 0, dotIndex);
+			
+			// Check if the output directory already exist
 			if (File.exists(dirOutRoot)) {
-						
+				
 				// Create the image and analysis directory inside each subdirectory
 				dirOut = dirOutRoot + "0" + (i+1) + "_" + title + File.separator;
 				File.makeDirectory(dirOut);
 	
 			}
-
-            // Get input image dimentions
-            getDimensions(width, height, channels, slices, frames);
+			
+			// Get input image dimentions
+			getDimensions(width, height, channels, slices, frames);
 
 			// YOU CAN ADD YOUR CODE HERE!
 			// ...

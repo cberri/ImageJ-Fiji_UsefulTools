@@ -92,6 +92,7 @@ function InputDirectory() {
 
 	// The macro check that you choose a directory and output the input path
 	if (lengthOf(dirIn) == 0) {
+		
 		print("Exit!");
 		exit();
 			
@@ -216,8 +217,8 @@ macro TemplateProcessImagesInSubfolders {
 									print("			" + "Opening input image: " + inputTitle);
 
 									// Remove file extension .somthing
-            						dotIndex = indexOf(inputTitleRaw, ".");
-           		 					title = substring(inputTitleRaw, 0, dotIndex);
+									dotIndex = indexOf(inputTitleRaw, ".");
+									title = substring(inputTitleRaw, 0, dotIndex);
 									
 									// YOU CAN ADD YOUR CODE HERE!
 									// ...
