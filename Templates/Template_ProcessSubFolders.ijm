@@ -76,6 +76,7 @@ function MaxMemory() {
 	memory = IJ.maxMemory();
 
 	if (memory > 4000000000) {
+		
 		print("Max Memory (RAM) available for Fiji/ImageJ is:", memory); 
 		print("Please change the amount of memory available to ImageJ/Fiji to 70% of your total memory");
 		print("Edit >> Options >> Memory % Threads...");

@@ -392,7 +392,7 @@ function MaxMemory() {
 	memory = IJ.maxMemory();
 
 	if (memory > 4000000000) {
-		
+
 		print("Max Memory (RAM) Available for Fiji/ImageJ is:", memory); 
 		print("Please change the amount of memory available to Fiji/ImageJ to 70% of your total memory");
 		print("Edit >> Options >> Memory % Threads...");
@@ -415,8 +415,8 @@ function CheckBioFormatPluginInstallation() {
     	print("\\Clear");
        
     } else {
-    	
-    	print("Before to start to use this macro you need to install the Bio-Formats plugin!");
+
+		print("Before to start to use this macro you need to install the Bio-Formats plugin!");
 		wait(3000);
 		print("1. Select Help >> Update... from the menu to start the updater");
 		print("2. Click on Manage update sites. This brings up a dialog where you can activate additional update sites");
@@ -436,21 +436,21 @@ function CheckIlastikPluginInstallation() {
 	List.setCommands;
 				
 	if (List.get("Export HDF5") == "") {
-			
+		
 		print("Before to start to use this macro you need to install the ilastik Import Export plugin!");
-		wait(3000); 	
-    	print("1. Select Help >> Update... from the menu to start the updater");
+		wait(3000);
+		print("1. Select Help >> Update... from the menu to start the updater");
 		print("2. Click on Manage update sites. This brings up a dialog where you can activate additional update sites");
-    	print("3. Activate ilastik Import Export update sites (http://sites.imagej.net/Ilastik/)");
-    	print("4. Click Apply changes and restart ImageJ/Fiji");
-    	print("5. After restarting ImageJ you should be able to run this macro");
-    	print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	wait(3000);
-    	exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
-    	exit(); 
-       	
-	} else {
+		print("3. Activate ilastik Import Export update sites (http://sites.imagej.net/Ilastik/)");
+		print("4. Click Apply changes and restart ImageJ/Fiji");
+		print("5. After restarting ImageJ you should be able to run this macro");
+		print("6. Further information can be found: https://www.ilastik.org/documentation/fiji_export/plugin/");
+		wait(3000);
+		exec("open", "https://www.ilastik.org/documentation/fiji_export/plugin/");
+		exit(); 
 
+	} else {
+		
 		print("ilastik Import Export plugin is installed!");
 		wait(3000);
 		print("\\Clear");
@@ -491,7 +491,8 @@ macro Template {
 	// 5. Create the output root directory in the input path
 	dirOutRoot = OutputDirectory(outputPath, year, month, dayOfMonth, second);
 
-	if (!File.exists(dirOutRoot)) {	
+	if (!File.exists(dirOutRoot)) {
+
 		File.makeDirectory(dirOutRoot);
 		text = "Output path:\t" + dirOutRoot;
 		print(text);

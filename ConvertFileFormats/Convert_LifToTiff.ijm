@@ -527,7 +527,6 @@ function RunMaxProjections(inputTitle, splitChannels, runProjections, dirOutSeri
 				inputTitle = getTitle();
 				close(inputTitle);
 
-				
 			} else if (channelID == 2) {
 
 				selectImage(ch2);
@@ -541,7 +540,6 @@ function RunMaxProjections(inputTitle, splitChannels, runProjections, dirOutSeri
 				// Close the open images
 				inputTitle = getTitle();
 				close(inputTitle);
-
 				
 			} else if (channelID == 3) {
 
@@ -558,7 +556,6 @@ function RunMaxProjections(inputTitle, splitChannels, runProjections, dirOutSeri
 				close(inputTitle);
 
 			}
-
 			
 		} else {
 
@@ -704,7 +701,6 @@ macro lifToTiffConverter {
 					
 				}
 
-
 			} else {
 
 				dirOutSeries = dirOut;
@@ -750,8 +746,8 @@ macro lifToTiffConverter {
 
 				// Index file seprator in case of lif subdirectory
 				separatorIndex = lastIndexOf(titleLast, "/");
-        		
-        		if (separatorIndex != -1) {
+				
+				if (separatorIndex != -1) {
 
 					titleSepAfter = substring(titleLast, separatorIndex+1, lengthOf(titleLast));
 					titleSepBefore = substring(titleLast, 0, separatorIndex);

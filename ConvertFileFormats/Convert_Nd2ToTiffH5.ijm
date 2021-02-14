@@ -27,8 +27,8 @@
 function CheckPluginInstallation() {
 	
 	List.setCommands;
-    if (List.get("Bio-Formats")!= "") {
-
+	if (List.get("Bio-Formats")!= "") {
+		
 		print("> Bio-Formats plugin is installed!");
 		wait(1000);
 		print("\\Clear");

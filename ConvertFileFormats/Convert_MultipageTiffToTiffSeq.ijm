@@ -63,7 +63,6 @@ function CloseMemoryWindow() {
 		selectWindow("Memory");
 		run("Close", "Memory");
 		
-		
 	} else {
 		
 		print("Memory window has not been found!");

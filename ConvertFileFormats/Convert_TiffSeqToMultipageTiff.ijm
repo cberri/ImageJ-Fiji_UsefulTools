@@ -95,7 +95,7 @@ function OutputDirectory(outputPath, year, month, dayOfMonth, second) {
 	// Split the string by file separtor
 	splitString = split(dirOutRoot, File.separator);
 	
-	for(i=0; i<splitString.length; i++) {
+	for (i=0; i<splitString.length; i++) {
 
 		lastString = splitString[i];
 		
