@@ -27,11 +27,11 @@
 function CheckPluginInstallation() {
 	
 	List.setCommands;
-	if (List.get("Bio-Formats")!= "") {
-		
-		print("> Bio-Formats plugin is installed!");
-		wait(1000);
-		print("\\Clear");
+    if (List.get("Bio-Formats")!= "") {
+
+    	print("> Bio-Formats plugin is installed!");
+    	wait(1000);
+    	print("\\Clear");
        
     } else {
     	
@@ -69,7 +69,7 @@ function CloseLogWindow(dirOutRoot) {
 		
 		selectWindow("Log");
 		
-		saveAs("Text", dirOutRoot + "Log.csv"); 
+		saveAs("Text", dirOutRoot + "Log.txt"); 
 		run("Close");
 		
 	} else {
@@ -144,11 +144,11 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 
 	// Select the input image and remove the file extention
 	selectImage(inputTitle);
-	rename(title);
-	inputTitle = getTitle();
+	//rename(title);
+	//inputTitle = getTitle();
 	
 	// Split the channel and save the raw data ROI
-	getDimensions(width, height, channels, slices, frames);
+    getDimensions(width, height, channels, slices, frames);
 
 	// For Varun Ramani large data enhance.ai
 	if (channels == 1 && (slices > 1 || frames > 1)) {
@@ -204,11 +204,11 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 		}
 
 		// Split the channel and catch the file name
-		run("Split Channels");
-		selectImage("C1-" + inputTitle);
-		ch1 = getTitle();
-		selectImage("C2-" + inputTitle);
-		ch2 = getTitle();
+        run("Split Channels");
+        selectImage("C1-" + inputTitle);
+        ch1 = getTitle();
+        selectImage("C2-" + inputTitle);
+        ch2 = getTitle();
 
 		// Save the output
 		if (h5 == true && tiff == false) {
@@ -287,14 +287,38 @@ function SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1
 			
 		}
 
+	} else if (channels >= 2 && (slices > 1 || frames > 1) && saveCh1 == false && saveCh2 == false) {
+
+		if (h5 == true && tiff == false) {
+
+			// Save the image as h5
+			run("Export HDF5", "select=[" + dirOut + inputTitle + ".h5" + "] exportpath=[" + dirOut + inputTitle + ".h5" + "] datasetname=data compressionlevel=0 input=["+inputTitle+"]");	
+
+			// Close the image
+			inputTitle = getTitle();
+			close(inputTitle);
+
+		} else if (h5 == false && tiff == true) {
+
+			// Save the image as tiff
+			saveAs("Tiff", dirOut + inputTitle);
+			inputTitle = getTitle();
+	
+			// Close the input image file
+			selectImage(inputTitle);
+			close(title);
+
+
+		}
+
 	} else {
 
 		// Max number of channels supported is 2
 		// Close the images and update the user in case of more channels
-		selectImage(inputTitle);
-		close(inputTitle);
-		print("Warning: The input image must be a stack with max 2 channels");
-		print("The input image " + title + " has " + channels + " channel and " + slices + " slices");
+        selectImage(inputTitle);
+        close(inputTitle);
+        print("Warning: The input image must be a stack with max 2 channels");
+        print("The input image " + title + " has " + channels + " channel and " + slices + " slices");
     			
 	}
 	
@@ -343,7 +367,6 @@ macro ConvertNd2FileToTiff {
 	// Start UP Functions
 	CloseAllWindows();
 	CheckPluginInstallation();
-	ContactInformation();
 
 	// Check available memory to ImageJ/Fiji
 	MaxMemory();
@@ -398,6 +421,7 @@ macro ConvertNd2FileToTiff {
 			// Count the number of nd2 file converted
 			// Preallocate
 			countNd2File = 0;
+			
 	  		
 			// Loop through the image file
 			for (k=0; k<fileList.length; k++) {
@@ -409,15 +433,31 @@ macro ConvertNd2FileToTiff {
 					run("Bio-Formats Importer", "open=["+ stringDirectory + File.separator + fileList[k]+"] color_mode=Default open_files open_all_series rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
 					inputTitle = getTitle();
 
-					// Remove the .xxx extention
-					dotIndex = indexOf(inputTitle, ".");
-					title = substring(inputTitle, 0, dotIndex);
+					// Count number of series 
+					nSeries = nImages;
 
-					// Split the channels and save the images as h5 or tiff
-					SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1, saveCh2);
+					for (j=1; j<=nSeries; j++) {
+
+						// Remove the .xxx extention
+						dotIndex = indexOf(inputTitle, ".");
+
+						if (dotIndex != -1) {
+						
+            				title = substring(inputTitle, 0, dotIndex);
+
+						}
+
+						// Split the channels and save the images as h5 or tiff
+						changeTitle = title + "_0" + j;
+						rename(changeTitle);
+						inputTitle = getTitle();
+						print(">> Processing serie (0" + j + ") - File Name " + inputTitle);
+						SplitChannelsAndSaveOutput(inputTitle, title, dirOut, h5, tiff, saveCh1, saveCh2);
+
+					}
 					
 					// Update the user
-					print("   " + k+1 + ". Processed: " + fileList[k]);
+					print(">> " + k+1 + ". Processed: " + fileList[k]);
 
 					// Count nd2 file
 					countNd2File += 1;
