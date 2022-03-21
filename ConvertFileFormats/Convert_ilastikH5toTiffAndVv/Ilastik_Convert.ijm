@@ -15,7 +15,7 @@
  * The macro will generate an output folder outside the input path where the converted images are saved.
  * 
  * Created: 2019/03/06
- * Last update: 2020/11/16
+ * Last update: 2022/03/21
  */
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,14 +128,14 @@ function OutputDirectory(outputPath, year, month, dayOfMonth, second) {
 // Input user setting
 function InputUserSettingParameters() {
 
-	axisDimentions = "zyxc";
+	axisDimentions = "tzyxc";
 	datasetName = "/exported_data"; // Change this with the right dataset name if not will ask each time the name of the dataset
 	singleTiff = false;
 	
 	Dialog.create("User Settings ");
 	Dialog.addMessage("Ilastik HDF5 to Tiff and Tiff to HDF5", 18);
 	Dialog.addMessage("___________________________________________________________________________________________");
-	Dialog.addString("Axis Dimention", axisDimentions,5);
+	Dialog.addString("       Axis", axisDimentions,5);
 	Dialog.addToSameRow();
 	Dialog.addString("Dataset Name", datasetName, 15);
 	
@@ -161,8 +161,6 @@ function InputUserSettingParameters() {
 	Dialog.addHelp(html);
 	Dialog.show();
 
-  	
-  	Dialog.show();
 	axisDimentions = Dialog.getString();
 	datasetName = Dialog.getString();
 	singleTiff = Dialog.getCheckbox();
@@ -270,12 +268,12 @@ macro IlastikConverter {
 	// Assumption: the h5 file to convert needs to have the same order dimensions
 	// if you enter the wrong dimensions the ilastik dialog box popup. To avoid the problem input the right dimensions in the dialog box
 	if (getFirstH5 == 0) {
-
-		// Set the count to 1
-		getFirstH5 = 1;
 						
 		// User input setting dimensions
 		userSettings = InputUserSettingParameters();
+		
+		// Set the count to 1
+		getFirstH5 = 1;
 					
 	}
 
@@ -324,7 +322,7 @@ macro IlastikConverter {
 					outputTitle = getTitle();
 					close(outputTitle);
 
-				} else if (endsWith(fileList[k], 'tiff') || endsWith(fileList[k], 'tif')) {
+				} else if (endsWith(fileList[k], '.tiff') || endsWith(fileList[k], '.tif')) {
 
 					// Update the user
 					print("Processing file:\t" + (k+1));
@@ -340,7 +338,7 @@ macro IlastikConverter {
 
 					// Save the file as h5
 					print("Saving: \t" + title + ".h5");
-					run("Export HDF5", "select=[" + dirOutRoot + title + ".h5" + "] exportpath=[" + dirOutRoot + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+title+"]");	
+					run("Export HDF5", "select=[" + dirOutRoot + title + ".h5" + "] exportpath=[" + dirOutRoot + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+fileList[k]+"]");	
 					outputTitle = getTitle();
 					close(outputTitle);
 
@@ -363,7 +361,7 @@ macro IlastikConverter {
 			fileFormat = CheckFileFormat(folderPath);
 			
 			// Tiff to H5
-			if (fileFormat == "tiff") {
+			if (fileFormat == '.tiff') {
 
 				// Open image sequence
 				run("Image Sequence...", "open=["+ folderPath + "] sort");
@@ -390,7 +388,7 @@ macro IlastikConverter {
 				
 				// Save the file as h5
 				print("Saving: \t" + title + ".h5");
-				run("Export HDF5", "select=[" + dirOut + title + ".h5" + "] exportpath=[" + dirOutRoot + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+title+"]");	
+				run("Export HDF5", "select=[" + dirOutRoot + title + ".h5" + "] exportpath=[" + dirOut + title + ".h5" + "] datasetname=data compressionlevel=0 input=["+fileList[k]+"]");	
 				outputTitle = getTitle();
 				close(outputTitle);
 
